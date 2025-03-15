@@ -24,6 +24,28 @@
   100% { background-position: 0% 50%; }
 }
 
+@keyframes shiningWave {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-80%) skewX(-15deg);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  90% {
+    transform: translateX(80%) skewX(-15deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(100%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
@@ -337,6 +359,7 @@ body {
   transition: all 0.3s ease;
   opacity: 0;
   animation: fadeIn 0.5s ease-out forwards;
+  margin-bottom: 1.5rem;
 }
 
 .ad-card:hover {
@@ -359,8 +382,58 @@ body {
 
 .ad-content {
   display: flex;
-  padding: 16px;
-  gap: 16px;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Image container with shining effect */
+.image-shine-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shining wave effect */
+.image-shine-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  animation: shiningWave 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ad-card:hover .image-shine-container::after {
+  animation: shiningWave 2s ease-in-out infinite;
+}
+
+/* Special styles for the ad detail page main image */
+.image-gallery .image-shine-container::after {
+  width: 300%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shiningWave 8s ease-in-out infinite;
+}
+
+.image-gallery:hover .image-shine-container::after {
+  animation: shiningWave 3s ease-in-out infinite;
 }
 
 .ad-image {
@@ -378,11 +451,14 @@ body {
 
 .ad-details {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ad-title {
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 16px;
   color: var(--foreground);
   line-height: 1.4;
@@ -391,7 +467,7 @@ body {
 .ad-description {
   font-size: 14px;
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   line-height: 1.6;
 }
 
@@ -402,6 +478,7 @@ body {
   color: var(--text-secondary);
   padding-top: 12px;
   border-top: 1px solid var(--border-color);
+  margin-top: auto;
 }
 
 .likes, .views {
@@ -921,6 +998,199 @@ body {
     padding-left: max(20px, env(safe-area-inset-left));
     padding-right: max(20px, env(safe-area-inset-right));
     padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Ad Detail Page Styles */
+.back-btn {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-3px);
+  opacity: 0.9;
+}
+
+/* Ad detail page container responsive padding */
+.ad-detail-container {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+@media (max-width: 1024px) {
+  .ad-detail-container {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+
+@media (max-width: 768px) {
+  .ad-detail-container {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ad-detail-container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+.image-gallery {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.gallery-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gallery-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.gallery-nav-btn.prev {
+  left: 0.5rem;
+}
+
+.gallery-nav-btn.next {
+  right: 0.5rem;
+}
+
+.gallery-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.gallery-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gallery-dot.active {
+  background: white;
+}
+
+/* Ad detail content styles */
+.ad-detail-section {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+.ad-detail-section h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+.ad-detail-section p {
+  color: var(--foreground);
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.contact-button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-bottom: 0.75rem;
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--hover-shadow);
+}
+
+.call-button {
+  background: linear-gradient(to right, #10b981, #059669);
+  color: white;
+}
+
+.whatsapp-button {
+  background: linear-gradient(to right, #3b82f6, #4f46e5);
+  color: white;
+}
+
+/* Similar ads section */
+.similar-ads-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+.similar-ad-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.similar-ad-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
+}
+
+/* Responsive styles for ad detail page */
+@media (max-width: 768px) {
+  .ad-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .image-gallery {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-gallery {
+    height: 200px;
+  }
+  
+  .gallery-nav-btn {
+    width: 2rem;
+    height: 2rem;
   }
 }
 

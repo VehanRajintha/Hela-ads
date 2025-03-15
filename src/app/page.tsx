@@ -1,50 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Placeholder from "./components/Placeholder";
-
-const adData = [
-  {
-    id: 1,
-    title: "Service for girls and aunties",
-    description: "I am a educated boy from colombo Doing service around colombo Age 25 Call or WhatsApp for more info Connect with me...",
-    likes: 1,
-    views: 430,
-    time: "2m ago",
-    type: "VIP Ad"
-  },
-  {
-    id: 2,
-    title: "👸Girls and Aunty's 👸 Home and...",
-    description: "💝Girls only Secret relationship & Full service💝 (no boys gay service) looking for a good relationship with girlfriend. Hi I'm...",
-    likes: 0,
-    views: 224,
-    time: "2m ago",
-    type: "VIP Ad"
-  },
-  {
-    id: 3,
-    title: "❤ Maharagama, Pannipitiya FULL...",
-    description: "❤ Maharagama, Pannipitiya FULL SERVICE 4500/= 👸% My real picture 👸 I'm Nilushi 👸 27 years 👸 Hot & Young Girl 👸 🌹...",
-    likes: 0,
-    views: 22,
-    time: "6m ago",
-    type: "Super Ad"
-  },
-  {
-    id: 4,
-    title: "Genuine Hot Hot cam show 💘 💝",
-    description: "👑 Hi©GENTLEMAN☺ 🌹 6 mins 1000/= fingering full body open show Im young student my name is Mathu age is 22 years...",
-    likes: 50,
-    views: "57.0K",
-    time: "16m ago",
-    type: "Cash Track Guaranteed"
-  }
-];
+import { adData } from "./data/ads";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
 
   // Handle body scroll when sidebar is open
   useEffect(() => {
@@ -62,8 +26,20 @@ export default function Home() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleAdClick = (adId: number) => {
+    router.push(`/ad/${adId}`);
+  };
+
+  // Filter ads based on search query
+  const filteredAds = searchQuery 
+    ? adData.filter(ad => 
+        ad.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        ad.description.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : adData;
+
   return (
-    <div>
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       {/* Header */}
       <header className="header">
         <button className="mobile-menu-btn" onClick={toggleSidebar}>
@@ -155,14 +131,34 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="ad-grid">
-            {adData.map((ad) => (
-              <div key={ad.id} className="ad-card">
+          {/* Ad Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-4">
+            {filteredAds.map((ad) => (
+              <div 
+                key={ad.id} 
+                className="ad-card cursor-pointer mb-6 transform transition-all duration-300 hover:-translate-y-2"
+                onClick={() => handleAdClick(ad.id)}
+              >
                 <span className={`ad-label ${ad.type === "NBA Ad" ? "nba-label" : ""}`}>
                   {ad.type}
                 </span>
                 <div className="ad-content">
-                  <Placeholder width={120} height={120} />
+                  {ad.images && ad.images.length > 0 ? (
+                    <div className="relative w-[120px] h-[120px] rounded-md overflow-hidden animate-fadeIn image-shine-container">
+                      <Image 
+                        src={ad.images[0]} 
+                        alt={ad.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        unoptimized
+                        className="transition-all duration-300 hover:scale-105 ad-image"
+                      />
+                    </div>
+                  ) : (
+                    <div className="animate-fadeIn image-shine-container">
+                      <Placeholder width={120} height={120} />
+                    </div>
+                  )}
                   <div className="ad-details">
                     <div className="ad-title">{ad.title}</div>
                     <div className="ad-description">{ad.description}</div>

@@ -1,52 +1,74 @@
 "use client";
+import React from 'react';
 import { motion } from "framer-motion";
 
-export default function Placeholder({ width, height }: { width: number; height: number }) {
+interface PlaceholderProps {
+  width: number | string;
+  height: number | string;
+  className?: string;
+}
+
+const Placeholder: React.FC<PlaceholderProps> = ({ width, height, className = '' }) => {
+  const style = {
+    width: typeof width === 'number' ? `${width}px` : width,
+    height: typeof height === 'number' ? `${height}px` : height,
+  };
+
+  // Format the dimensions for display
+  const displayWidth = typeof width === 'number' ? width : 'auto';
+  const displayHeight = typeof height === 'number' ? height : 'auto';
+
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.05 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.2 }}
       style={{ 
-        width, 
-        height,
+        ...style,
         backgroundColor: '#242424',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#666',
-        fontSize: '12px',
         borderRadius: '8px',
         overflow: 'hidden',
         position: 'relative'
       }}
+      className={`${className}`}
     >
       <div
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent)',
-          backgroundSize: '200% 200%',
-          animation: 'shimmer 2s infinite linear'
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(135deg, #1a1a1a 25%, #242424 25%, #242424 50%, #1a1a1a 50%, #1a1a1a 75%, #242424 75%, #242424 100%)',
+          backgroundSize: '20px 20px',
+          opacity: 0.5
         }}
       />
       <motion.span
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{
+          position: 'absolute',
+          color: '#666',
+          fontSize: '12px',
+          fontFamily: 'monospace'
+        }}
         transition={{ delay: 0.1 }}
       >
-        {width}x{height}
+        {displayWidth !== 'auto' && displayHeight !== 'auto' ? `${displayWidth}x${displayHeight}` : ''}
       </motion.span>
       <style jsx>{`
         @keyframes shimmer {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
         }
       `}</style>
     </motion.div>
   );
-} 
+};
+
+export default Placeholder; 
