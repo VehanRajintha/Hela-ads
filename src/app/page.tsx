@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Placeholder from "./components/Placeholder";
 import { adData } from "./data/ads";
+import { useAuth } from "./context/AuthContext";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
+  const { user } = useAuth();
 
   // Handle body scroll when sidebar is open
   useEffect(() => {
@@ -28,6 +30,22 @@ export default function Home() {
 
   const handleAdClick = (adId: number) => {
     router.push(`/ad/${adId}`);
+  };
+
+  const handlePostAdClick = () => {
+    if (user) {
+      router.push('/dashboard?tab=post-ad');
+    } else {
+      router.push('/login');
+    }
+  };
+
+  const handleDashboardClick = () => {
+    if (user) {
+      router.push('/dashboard');
+    } else {
+      router.push('/login');
+    }
   };
 
   // Filter ads based on search query
@@ -51,7 +69,7 @@ export default function Home() {
         </div>
         <div className="header-buttons">
           <button className="refresh-btn">Refresh</button>
-          <button className="post-ad-btn">Post Ad</button>
+          <button className="post-ad-btn" onClick={handlePostAdClick}>Post Ad</button>
         </div>
       </header>
 
@@ -94,8 +112,12 @@ export default function Home() {
             <button className="menu-button fake-ads-btn">Fake Ads ⚠</button>
             <button className="menu-button saved-ads-btn">My Saved Ads ❤</button>
             <button className="menu-button blog-btn">Blog 📰</button>
-            <button className="menu-button dashboard-btn">Dashboard 🏠</button>
-            <button className="menu-button logout-btn">Logout ↪</button>
+            <button className="menu-button dashboard-btn" onClick={handleDashboardClick}>Dashboard 🏠</button>
+            {user ? (
+              <button className="menu-button logout-btn" onClick={() => router.push('/dashboard')}>My Account ↪</button>
+            ) : (
+              <button className="menu-button logout-btn" onClick={() => router.push('/login')}>Login ↪</button>
+            )}
           </div>
 
           <div className="quick-links">

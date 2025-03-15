@@ -1,0 +1,195 @@
+/* Login page animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Animation classes */
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.6s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-blob {
+  animation: blob 7s infinite alternate;
+}
+
+/* Animation delays */
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-2000 {
+  animation-delay: 2s;
+}
+
+.delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Login page specific styles */
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #0f0f1a, #1a1a2e, #16213e);
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.login-header {
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-card {
+  backdrop-filter: blur(16px);
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.login-card:hover {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.login-title {
+  background: linear-gradient(to right, #ec4899, #a855f7, #6366f1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.login-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  transition: all 0.3s;
+}
+
+.login-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.login-input::placeholder {
+  color: rgba(156, 163, 175, 1);
+}
+
+.login-button {
+  background: linear-gradient(to right, #9333ea, #db2777);
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to right, #7e22ce, #be185d);
+}
+
+.google-button {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.google-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.google-button-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.google-button:hover .google-button-overlay {
+  opacity: 1;
+}
+
+/* Background blobs */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.bg-blob-1 {
+  top: -10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(139, 92, 246, 0.1);
+  animation: blob 7s infinite alternate;
+}
+
+.bg-blob-2 {
+  top: 0;
+  right: -5%;
+  width: 400px;
+  height: 400px;
+  background-color: rgba(236, 72, 153, 0.1);
+  animation: blob 7s infinite alternate;
+  animation-delay: 2s;
+}
+
+.bg-blob-3 {
+  bottom: 0;
+  left: 5%;
+  width: 450px;
+  height: 450px;
+  background-color: rgba(59, 130, 246, 0.1);
+  animation: blob 7s infinite alternate;
+  animation-delay: 4s;
+} 
