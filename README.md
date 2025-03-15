@@ -1,8 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hela Lanka Ads
+
+A modern advertising platform for Sri Lanka, built with Next.js, Firebase, and MongoDB.
+
+## Environment Variables
+
+This project uses environment variables to store sensitive information. Before running the application, you need to set up these variables:
+
+1. Copy the `.env.example` file to a new file named `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in the values in the `.env` file with your actual credentials:
+   - MongoDB connection string
+   - Firebase configuration
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -10,15 +35,34 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- User authentication with Firebase
+- Data storage with MongoDB
+- Modern UI with Tailwind CSS
+- Responsive design for all devices
+
+## Project Structure
+
+- `/src/app` - Next.js app directory
+  - `/components` - Reusable UI components
+  - `/context` - React context providers
+  - `/firebase` - Firebase configuration
+  - `/lib` - Utility functions and database connections
+  - `/models` - MongoDB models
+  - `/login` - Login page
+  - `/dashboard` - User dashboard
+
+## Security
+
+This project follows security best practices:
+- Sensitive information is stored in environment variables
+- Authentication is handled by Firebase
+- Database credentials are never exposed to the client
 
 ## Learn More
 

@@ -4,13 +4,13 @@ import { getAnalytics, isSupported } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDy-KCB4u2_mbhdL5DRN3m1wO7Y_oyCTKw",
-  authDomain: "hela-ads.firebaseapp.com",
-  projectId: "hela-ads",
-  storageBucket: "hela-ads.firebasestorage.app",
-  messagingSenderId: "934576146893",
-  appId: "1:934576146893:web:118637aac170a79b97dc84",
-  measurementId: "G-C1NJBM5PB0"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
